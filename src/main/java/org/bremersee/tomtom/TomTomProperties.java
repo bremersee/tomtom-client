@@ -31,7 +31,7 @@ import lombok.ToString;
 @SuppressWarnings("WeakerAccess")
 public class TomTomProperties {
 
-  public static final String DEFAULT_ROUTING_URI = "https://api.tomtom.com/routing/1/calculateRoute/{locations}/json";
+  public static final String DEFAULT_ROUTING_URI = "https://api.tomtom.com/routing/1/calculateRoute";
 
   public static final String DEFAULT_GEOCODE_URI = "https://api.tomtom.com/search/2";
 

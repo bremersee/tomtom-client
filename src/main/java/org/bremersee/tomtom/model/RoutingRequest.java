@@ -39,6 +39,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
 
 /**
+ * The routing request.
+ *
  * @author Christian Bremer
  */
 @Getter
@@ -236,6 +238,43 @@ public class RoutingRequest extends AbstractRequest {
    */
   private List<VehicleLoadType> vehicleLoadType;
 
+  /**
+   * Instantiates a new routing request.
+   *
+   * @param locations the locations
+   * @param supportingPoints the supporting points
+   * @param maxAlternatives the max alternatives
+   * @param alternativeType the alternative type
+   * @param minDeviationDistance the min deviation distance
+   * @param minDeviationTime the min deviation time
+   * @param instructionsType the instructions type
+   * @param language the language
+   * @param computeBestOrder the compute best order
+   * @param routeRepresentation the route representation
+   * @param computeTravelTimeFor the compute travel time for
+   * @param vehicleHeading the vehicle heading
+   * @param sectionType the section type
+   * @param report the report
+   * @param departAt the depart at
+   * @param arriveAt the arrive at
+   * @param routeType the route type
+   * @param traffic the traffic
+   * @param avoid the avoid
+   * @param avoidAreas the avoid areas
+   * @param avoidVignette the avoid vignette
+   * @param allowVignette the allow vignette
+   * @param travelMode the travel mode
+   * @param hilliness the hilliness
+   * @param windingness the windingness
+   * @param vehicleMaxSpeed the vehicle max speed
+   * @param vehicleWeight the vehicle weight
+   * @param vehicleAxleWeight the vehicle axle weight
+   * @param vehicleLength the vehicle length
+   * @param vehicleWidth the vehicle width
+   * @param vehicleHeight the vehicle height
+   * @param vehicleCommercial the vehicle commercial
+   * @param vehicleLoadType the vehicle load type
+   */
   @Builder
   public RoutingRequest(
       List<LatLonAware> locations,
@@ -309,6 +348,11 @@ public class RoutingRequest extends AbstractRequest {
     this.vehicleLoadType = vehicleLoadType;
   }
 
+  /**
+   * Gets path.
+   *
+   * @return the path
+   */
   public String getPath() {
     return "/" + buildLocations() + "/json";
   }
@@ -331,6 +375,12 @@ public class RoutingRequest extends AbstractRequest {
     return locationsBuilder.toString();
   }
 
+  /**
+   * Build url parameters.
+   *
+   * @param urlEncode the url encode
+   * @return the url parameters
+   */
   public MultiValueMap<String, String> buildParameters(final boolean urlEncode) {
     final MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
     if (maxAlternatives != null) {
@@ -432,6 +482,11 @@ public class RoutingRequest extends AbstractRequest {
     return map;
   }
 
+  /**
+   * Has post body?
+   *
+   * @return the boolean
+   */
   public boolean hasPostBody() {
     return (supportingPoints != null && !supportingPoints.isEmpty())
         || (avoidAreas != null && !avoidAreas.isEmpty())
@@ -439,6 +494,11 @@ public class RoutingRequest extends AbstractRequest {
         || !buildISO3Countries(allowVignette).isEmpty();
   }
 
+  /**
+   * Build post body.
+   *
+   * @return the post body
+   */
   public PostBody buildPostBody() {
     final PostBody postBody = new PostBody();
     postBody.setSupportingPoints(supportingPoints);
@@ -462,8 +522,12 @@ public class RoutingRequest extends AbstractRequest {
     return countries;
   }
 
+  /**
+   * The post body.
+   */
   @JsonInclude(Include.NON_EMPTY)
   @Data
+  @SuppressWarnings("WeakerAccess")
   public static class PostBody {
 
     private List<LatitudeLongitude> supportingPoints;
@@ -474,6 +538,9 @@ public class RoutingRequest extends AbstractRequest {
 
     private AvoidAreas avoidAreas;
 
+    /**
+     * The avoid areas.
+     */
     @JsonInclude(Include.NON_EMPTY)
     @Data
     @NoArgsConstructor
@@ -484,8 +551,20 @@ public class RoutingRequest extends AbstractRequest {
     }
   }
 
+  /**
+   * The alternative type.
+   */
   public enum AlternativeType {
-    ANY_ROUTE("anyRoute"), BETTER_ROUTE("betterRoute");
+
+    /**
+     * Any route alternative type.
+     */
+    ANY_ROUTE("anyRoute"),
+
+    /**
+     * Better route alternative type.
+     */
+    BETTER_ROUTE("betterRoute");
 
     @Getter
     private String value;
@@ -494,6 +573,12 @@ public class RoutingRequest extends AbstractRequest {
       this.value = value;
     }
 
+    /**
+     * From value alternative type.
+     *
+     * @param value the value
+     * @return the alternative type
+     */
     public static AlternativeType fromValue(String value) {
       for (AlternativeType alternativeType : AlternativeType.values()) {
         if (alternativeType.getValue().equalsIgnoreCase(value)) {
@@ -504,8 +589,25 @@ public class RoutingRequest extends AbstractRequest {
     }
   }
 
+  /**
+   * The instructions type.
+   */
   public enum InstructionsType {
-    CODED("coded"), TEXT("text"), TAGGED("tagged");
+
+    /**
+     * Coded instructions type.
+     */
+    CODED("coded"),
+
+    /**
+     * Text instructions type.
+     */
+    TEXT("text"),
+
+    /**
+     * Tagged instructions type.
+     */
+    TAGGED("tagged");
 
     @Getter
     private String value;
@@ -514,6 +616,12 @@ public class RoutingRequest extends AbstractRequest {
       this.value = value;
     }
 
+    /**
+     * From value instructions type.
+     *
+     * @param value the value
+     * @return the instructions type
+     */
     public static InstructionsType fromValue(String value) {
       for (InstructionsType instructionsType : InstructionsType.values()) {
         if (instructionsType.getValue().equalsIgnoreCase(value)) {
@@ -524,8 +632,20 @@ public class RoutingRequest extends AbstractRequest {
     }
   }
 
+  /**
+   * The route representation.
+   */
   public enum RouteRepresentation {
-    POLYLINE("polyline"), NONE("none");
+
+    /**
+     * Polyline route representation.
+     */
+    POLYLINE("polyline"),
+
+    /**
+     * None route representation.
+     */
+    NONE("none");
 
     @Getter
     private String value;
@@ -534,6 +654,12 @@ public class RoutingRequest extends AbstractRequest {
       this.value = value;
     }
 
+    /**
+     * From value route representation.
+     *
+     * @param value the value
+     * @return the route representation
+     */
     public static RouteRepresentation fromValue(String value) {
       for (RouteRepresentation routeRepresentation : RouteRepresentation.values()) {
         if (routeRepresentation.getValue().equalsIgnoreCase(value)) {
@@ -544,8 +670,20 @@ public class RoutingRequest extends AbstractRequest {
     }
   }
 
+  /**
+   * The travel time.
+   */
   public enum TravelTime {
-    ALL("all"), NONE("none");
+
+    /**
+     * All travel time.
+     */
+    ALL("all"),
+
+    /**
+     * None travel time.
+     */
+    NONE("none");
 
     @Getter
     private String value;
@@ -554,6 +692,12 @@ public class RoutingRequest extends AbstractRequest {
       this.value = value;
     }
 
+    /**
+     * From value travel time.
+     *
+     * @param value the value
+     * @return the travel time
+     */
     public static TravelTime fromValue(String value) {
       for (TravelTime travelTime : TravelTime.values()) {
         if (travelTime.getValue().equalsIgnoreCase(value)) {
@@ -564,7 +708,14 @@ public class RoutingRequest extends AbstractRequest {
     }
   }
 
+  /**
+   * The report.
+   */
   public enum Report {
+
+    /**
+     * Effective settings report.
+     */
     EFFECTIVE_SETTINGS("effectiveSettings");
 
     @Getter
@@ -574,6 +725,12 @@ public class RoutingRequest extends AbstractRequest {
       this.value = value;
     }
 
+    /**
+     * From value report.
+     *
+     * @param value the value
+     * @return the report
+     */
     public static Report fromValue(String value) {
       for (Report report : Report.values()) {
         if (report.getValue().equalsIgnoreCase(value)) {
@@ -584,8 +741,30 @@ public class RoutingRequest extends AbstractRequest {
     }
   }
 
+  /**
+   * The route type.
+   */
   public enum RouteType {
-    FASTEST("fastest"), SHORTEST("shortest"), ECO("eco"), THRILLING("thrilling");
+
+    /**
+     * Fastest route type.
+     */
+    FASTEST("fastest"),
+
+    /**
+     * Shortest route type.
+     */
+    SHORTEST("shortest"),
+
+    /**
+     * Eco route type.
+     */
+    ECO("eco"),
+
+    /**
+     * Thrilling route type.
+     */
+    THRILLING("thrilling");
 
     @Getter
     private String value;
@@ -594,6 +773,12 @@ public class RoutingRequest extends AbstractRequest {
       this.value = value;
     }
 
+    /**
+     * From value route type.
+     *
+     * @param value the value
+     * @return the route type
+     */
     public static RouteType fromValue(String value) {
       for (RouteType routeType : RouteType.values()) {
         if (routeType.getValue().equalsIgnoreCase(value)) {
@@ -604,18 +789,39 @@ public class RoutingRequest extends AbstractRequest {
     }
   }
 
+  /**
+   * The avoid.
+   */
   public enum Avoid {
 
+    /**
+     * Toll roads avoid.
+     */
     TOLL_ROADS("tollRoads"),
 
+    /**
+     * Motorways avoid.
+     */
     MOTORWAYS("motorways"),
 
+    /**
+     * Ferries avoid.
+     */
     FERRIES("ferries"),
 
+    /**
+     * Unpaved roads avoid.
+     */
     UNPAVED_ROADS("unpavedRoads"),
 
+    /**
+     * Carpools avoid.
+     */
     CARPOOLS("carpools"),
 
+    /**
+     * Already used roads avoid.
+     */
     ALREADY_USED_ROADS("alreadyUsedRoads");
 
     @Getter
@@ -625,6 +831,12 @@ public class RoutingRequest extends AbstractRequest {
       this.value = value;
     }
 
+    /**
+     * From value avoid.
+     *
+     * @param value the value
+     * @return the avoid
+     */
     public static Avoid fromValue(String value) {
       for (Avoid avoid : Avoid.values()) {
         if (avoid.getValue().equalsIgnoreCase(value)) {
@@ -635,22 +847,49 @@ public class RoutingRequest extends AbstractRequest {
     }
   }
 
+  /**
+   * The travel mode.
+   */
   public enum TravelMode {
 
+    /**
+     * Car travel mode.
+     */
     CAR("car"),
 
+    /**
+     * Truck travel mode.
+     */
     TRUCK("truck"),
 
+    /**
+     * Taxi travel mode.
+     */
     TAXI("taxi"),
 
+    /**
+     * Bus travel mode.
+     */
     BUS("bus"),
 
+    /**
+     * Van travel mode.
+     */
     VAN("van"),
 
-    MOTORCYCLE("alreadyUsedRoads"),
+    /**
+     * Motorcycle travel mode.
+     */
+    MOTORCYCLE("motorcycle"),
 
+    /**
+     * Bicycle travel mode.
+     */
     BICYCLE("bicycle"),
 
+    /**
+     * Pedestrian travel mode.
+     */
     PEDESTRIAN("pedestrian");
 
     @Getter
@@ -660,6 +899,12 @@ public class RoutingRequest extends AbstractRequest {
       this.value = value;
     }
 
+    /**
+     * From value travel mode.
+     *
+     * @param value the value
+     * @return the travel mode
+     */
     public static TravelMode fromValue(String value) {
       for (TravelMode travelMode : TravelMode.values()) {
         if (travelMode.getValue().equalsIgnoreCase(value)) {
@@ -670,12 +915,24 @@ public class RoutingRequest extends AbstractRequest {
     }
   }
 
+  /**
+   * The hilliness.
+   */
   public enum Hilliness {
 
+    /**
+     * Low hilliness.
+     */
     LOW("low"),
 
+    /**
+     * Normal hilliness.
+     */
     NORMAL("normal"),
 
+    /**
+     * High hilliness.
+     */
     HIGH("high");
 
     @Getter
@@ -685,6 +942,12 @@ public class RoutingRequest extends AbstractRequest {
       this.value = value;
     }
 
+    /**
+     * From value hilliness.
+     *
+     * @param value the value
+     * @return the hilliness
+     */
     public static Hilliness fromValue(String value) {
       for (Hilliness hilliness : Hilliness.values()) {
         if (hilliness.getValue().equalsIgnoreCase(value)) {
@@ -695,12 +958,24 @@ public class RoutingRequest extends AbstractRequest {
     }
   }
 
+  /**
+   * The windingness.
+   */
   public enum Windingness {
 
+    /**
+     * Low windingness.
+     */
     LOW("low"),
 
+    /**
+     * Normal windingness.
+     */
     NORMAL("normal"),
 
+    /**
+     * High windingness.
+     */
     HIGH("high");
 
     @Getter
@@ -710,6 +985,12 @@ public class RoutingRequest extends AbstractRequest {
       this.value = value;
     }
 
+    /**
+     * From value windingness.
+     *
+     * @param value the value
+     * @return the windingness
+     */
     public static Windingness fromValue(String value) {
       for (Windingness windingness : Windingness.values()) {
         if (windingness.getValue().equalsIgnoreCase(value)) {
@@ -720,30 +1001,69 @@ public class RoutingRequest extends AbstractRequest {
     }
   }
 
+  /**
+   * The vehicle load type.
+   */
   public enum VehicleLoadType {
 
+    /**
+     * Us hazmat class 1 vehicle load type.
+     */
     US_HAZMAT_CLASS_1("USHazmatClass1", "Explosives (US)"),
 
+    /**
+     * The Us hazmat class 2.
+     */
     US_HAZMAT_CLASS_2("USHazmatClass2", "Compressed gas"),
 
+    /**
+     * The Us hazmat class 3.
+     */
     US_HAZMAT_CLASS_3("USHazmatClass3", "Flammable liquids"),
 
+    /**
+     * The Us hazmat class 4.
+     */
     US_HAZMAT_CLASS_4("USHazmatClass4", "Flammable solids"),
 
+    /**
+     * Us hazmat class 5 vehicle load type.
+     */
     US_HAZMAT_CLASS_5("USHazmatClass5", "Oxidizers"),
 
+    /**
+     * Us hazmat class 6 vehicle load type.
+     */
     US_HAZMAT_CLASS_6("USHazmatClass6", "Poisons"),
 
+    /**
+     * Us hazmat class 7 vehicle load type.
+     */
     US_HAZMAT_CLASS_7("USHazmatClass7", "Radioactive"),
 
+    /**
+     * Us hazmat class 8 vehicle load type.
+     */
     US_HAZMAT_CLASS_8("USHazmatClass8", "Corrosives"),
 
+    /**
+     * Us hazmat class 9 vehicle load type.
+     */
     US_HAZMAT_CLASS_9("USHazmatClass9", "Miscellaneous"),
 
+    /**
+     * Other hazmat explosive vehicle load type.
+     */
     OTHER_HAZMAT_EXPLOSIVE("otherHazmatExplosive", "Explosives"),
 
+    /**
+     * Other hazmat general vehicle load type.
+     */
     OTHER_HAZMAT_GENERAL("otherHazmatGeneral", "Miscellaneous"),
 
+    /**
+     * The Other hazmat harmful to water.
+     */
     OTHER_HAZMAT_HARMFUL_TO_WATER("otherHazmatHarmfulToWater", "Harmful to water");
 
     @Getter
@@ -757,6 +1077,12 @@ public class RoutingRequest extends AbstractRequest {
       this.description = description;
     }
 
+    /**
+     * From value vehicle load type.
+     *
+     * @param value the value
+     * @return the vehicle load type
+     */
     public static VehicleLoadType fromValue(String value) {
       for (VehicleLoadType vehicleLoadType : VehicleLoadType.values()) {
         if (vehicleLoadType.getValue().equalsIgnoreCase(value)) {
