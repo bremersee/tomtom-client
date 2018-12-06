@@ -27,7 +27,7 @@ import org.bremersee.plain.model.UnknownAware;
  *
  * <p>Sections contain additional information about parts of a route. Each {@code section}
  * contains at least the elements {@code startPointIndex}, {@code endPointIndex} {@code
- * sectionType}.
+ * sectionType}*.
  *
  * <p>See
  * <a href="https://developer.tomtom.com/routing-api/routing-api-documentation-routing/calculate-route#responseSection">
@@ -42,8 +42,16 @@ import org.bremersee.plain.model.UnknownAware;
 @SuppressWarnings("WeakerAccess")
 public class RouteSection extends UnknownAware {
 
+  /**
+   * Index of the first point (offset 0) in the route this section applies to (only included for
+   * routeRepresentation polyline).
+   */
   private Integer startPointIndex;
 
+  /**
+   * Index of the last point (offset 0) in the route this section applies to (only included for
+   * routeRepresentation polyline).
+   */
   private Integer endPointIndex;
 
   /**
@@ -58,19 +66,73 @@ public class RouteSection extends UnknownAware {
    */
   private String travelMode;
 
+  /**
+   * The section type.
+   */
+  @SuppressWarnings("unused")
   public enum SectionType {
+
+    /**
+     * Unknown section type.
+     */
     UNKNOWN,
+
+    /**
+     * Car train section type.
+     */
     CAR_TRAIN,
+
+    /**
+     * Country section type.
+     */
     COUNTRY,
+
+    /**
+     * Ferry section type.
+     */
     FERRY,
+
+    /**
+     * Motorway section type.
+     */
     MOTORWAY,
+
+    /**
+     * Pedestrian section type.
+     */
     PEDESTRIAN,
+
+    /**
+     * Toll road section type.
+     */
     TOLL_ROAD,
+
+    /**
+     * Toll vignette section type.
+     */
     TOLL_VIGNETTE,
+
+    /**
+     * Traffic section type.
+     */
     TRAFFIC,
+
+    /**
+     * Travel mode section type.
+     */
     TRAVEL_MODE,
+
+    /**
+     * Tunnel section type.
+     */
     TUNNEL;
 
+    /**
+     * From value section type.
+     *
+     * @param value the value
+     * @return the section type
+     */
     public static SectionType fromValue(String value) {
       for (SectionType sectionType : SectionType.values()) {
         if (sectionType.name().equalsIgnoreCase(value)) {

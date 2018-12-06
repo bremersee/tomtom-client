@@ -16,7 +16,6 @@
 
 package org.bremersee.tomtom.model;
 
-import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +23,11 @@ import lombok.ToString;
 import org.bremersee.plain.model.UnknownAware;
 
 /**
+ * Groups a sequence of instruction elements which are related to each other. The sequence range is
+ * constrained with firstInstructionIndex and lastInstructionIndex. When human-readable text
+ * messages are requested for guidance (instructionType=text or tagged), then the instructionGroup
+ * has a summary message returned when available.
+ *
  * @author Christian Bremer
  */
 @Getter

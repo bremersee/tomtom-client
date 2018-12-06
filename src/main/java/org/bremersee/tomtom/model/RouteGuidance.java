@@ -24,6 +24,9 @@ import lombok.ToString;
 import org.bremersee.plain.model.UnknownAware;
 
 /**
+ * Contains guidance related elements. This field is present only when guidance was requested and is
+ * available.
+ *
  * @author Christian Bremer
  */
 @Getter

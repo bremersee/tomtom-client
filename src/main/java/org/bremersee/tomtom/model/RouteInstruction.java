@@ -24,6 +24,9 @@ import lombok.ToString;
 import org.bremersee.plain.model.UnknownAware;
 
 /**
+ * A set of attributes describing a maneuver, e.g. 'Turn right', 'Keep left', 'Take the ferry',
+ * 'Take the motorway', 'Arrive'.
+ *
  * @author Christian Bremer
  */
 @Getter
@@ -164,15 +167,53 @@ public class RouteInstruction extends UnknownAware {
    */
   private String combinedMessage;
 
+  /**
+   * The instruction type.
+   */
+  @SuppressWarnings("unused")
   public enum InstructionType {
+
+    /**
+     * Unknown instruction type.
+     */
     UNKNOWN,
+
+    /**
+     * Turn instruction type.
+     */
     TURN,
+
+    /**
+     * Road change instruction type.
+     */
     ROAD_CHANGE,
+
+    /**
+     * Location departure instruction type.
+     */
     LOCATION_DEPARTURE,
+
+    /**
+     * Location arrival instruction type.
+     */
     LOCATION_ARRIVAL,
+
+    /**
+     * Direction info instruction type.
+     */
     DIRECTION_INFO,
+
+    /**
+     * Location waypoint instruction type.
+     */
     LOCATION_WAYPOINT;
 
+    /**
+     * From value instruction type.
+     *
+     * @param value the value
+     * @return the instruction type
+     */
     public static InstructionType fromValue(String value) {
       for (InstructionType instructionType : InstructionType.values()) {
         if (instructionType.name().equalsIgnoreCase(value)) {
@@ -183,12 +224,38 @@ public class RouteInstruction extends UnknownAware {
     }
   }
 
+  /**
+   * The junction type.
+   */
+  @SuppressWarnings("unused")
   public enum JunctionType {
+
+    /**
+     * Unknown junction type.
+     */
     UNKNOWN,
+
+    /**
+     * Regular junction type.
+     */
     REGULAR,
+
+    /**
+     * Roundabout junction type.
+     */
     ROUNDABOUT,
+
+    /**
+     * Bifurcation junction type.
+     */
     BIFURCATION;
 
+    /**
+     * From value junction type.
+     *
+     * @param value the value
+     * @return the junction type
+     */
     public static JunctionType fromValue(String value) {
       for (JunctionType junctionType : JunctionType.values()) {
         if (junctionType.name().equalsIgnoreCase(value)) {

@@ -24,14 +24,20 @@ import lombok.ToString;
 import org.bremersee.plain.model.UnknownAware;
 
 /**
+ * The routing report.
+ *
  * @author Christian Bremer
  */
 @Getter
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
+@SuppressWarnings("WeakerAccess")
 public class RoutingResponseReport extends UnknownAware {
 
+  /**
+   * Effective parameters or data used when calling the Calculate Route API.
+   */
   private List<KeyValue> effectiveSettings;
 
 }

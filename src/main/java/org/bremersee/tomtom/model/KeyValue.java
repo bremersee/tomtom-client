@@ -23,12 +23,15 @@ import lombok.ToString;
 import org.bremersee.plain.model.UnknownAware;
 
 /**
+ * A key and it's value.
+ *
  * @author Christian Bremer
  */
 @Getter
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
+@SuppressWarnings("WeakerAccess")
 public class KeyValue extends UnknownAware {
 
   private String key;

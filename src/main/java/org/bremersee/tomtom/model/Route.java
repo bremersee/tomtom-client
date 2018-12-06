@@ -16,7 +16,6 @@
 
 package org.bremersee.tomtom.model;
 
-import java.time.OffsetDateTime;
 import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -25,6 +24,8 @@ import lombok.ToString;
 import org.bremersee.plain.model.UnknownAware;
 
 /**
+ * A description of a route comprised of a list of legs.
+ *
  * @author Christian Bremer
  */
 @Getter

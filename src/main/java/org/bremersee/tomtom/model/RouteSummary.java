@@ -25,6 +25,8 @@ import lombok.ToString;
 import org.bremersee.plain.model.UnknownAware;
 
 /**
+ * A summary of a route, or a route leg.
+ *
  * @author Christian Bremer
  */
 @Getter
@@ -40,8 +42,14 @@ public class RouteSummary extends UnknownAware {
 
   private Integer trafficDelayInSeconds;
 
+  /**
+   * The estimated departure time for the route or leg.
+   */
   private OffsetDateTime departureTime;
 
+  /**
+   * The estimated arrival time for the route or leg.
+   */
   private OffsetDateTime arrivalTime;
 
   private Integer noTrafficTravelTimeInSeconds;

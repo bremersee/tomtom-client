@@ -24,6 +24,12 @@ import lombok.ToString;
 import org.bremersee.plain.model.UnknownAware;
 
 /**
+ * The routing response.
+ *
+ * <p>See
+ * <a href="https://developer.tomtom.com/routing-api/routing-api-documentation-routing/calculate-route#Response">
+ * Response</a>
+ *
  * @author Christian Bremer
  */
 @Getter
@@ -42,6 +48,22 @@ public class RoutingResponse extends UnknownAware {
 
   private List<Route> routes;
 
+  /**
+   * Optimized sequence of waypoints. It shows the index from the user provided waypoint sequence
+   * for the original and optimized list. For instance, a response:
+   * <pre>
+   * {@literal
+   * <optimizedWaypoints>
+   * <waypoint providedIndex="0" optimizedIndex="1"/>
+   * <waypoint providedIndex="1" optimizedIndex="2"/>
+   * <waypoint providedIndex="2" optimizedIndex="0"/>
+   * </optimizedWaypoints>
+   * }
+   * </pre>
+   * means that the original sequence is [0, 1, 2] and optimized sequence is [1, 2, 0]. Since the
+   * index starts by 0 the original is "first, second, third" while the optimized is "second, third,
+   * first".
+   */
   private List<OptimizedWaypoint> optimizedWaypoints;
 
   private RoutingResponseReport report;

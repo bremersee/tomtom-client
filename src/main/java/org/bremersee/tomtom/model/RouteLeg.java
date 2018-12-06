@@ -24,6 +24,9 @@ import lombok.ToString;
 import org.bremersee.plain.model.UnknownAware;
 
 /**
+ * A description of a part of a route, comprised of a list of points. Each additional waypoint
+ * provided in the request will result in an additional leg in the returned route.
+ *
  * @author Christian Bremer
  */
 @Getter

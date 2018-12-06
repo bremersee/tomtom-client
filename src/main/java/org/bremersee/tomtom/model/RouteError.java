@@ -23,6 +23,8 @@ import lombok.ToString;
 import org.bremersee.plain.model.UnknownAware;
 
 /**
+ * Routing error.
+ *
  * @author Christian Bremer
  */
 @Getter

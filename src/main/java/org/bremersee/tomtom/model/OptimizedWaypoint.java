@@ -23,6 +23,8 @@ import lombok.ToString;
 import org.bremersee.plain.model.UnknownAware;
 
 /**
+ * An optimized waypoint.
+ *
  * @author Christian Bremer
  */
 @Getter
