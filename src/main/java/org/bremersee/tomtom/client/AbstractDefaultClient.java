@@ -144,7 +144,7 @@ public abstract class AbstractDefaultClient extends AbstractClient {
     /**
      * Post http method.
      */
-    POST;
+    POST
   }
 
 }
