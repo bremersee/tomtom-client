@@ -22,23 +22,39 @@ import org.bremersee.tomtom.model.AbstractReverseGeocodeRequest;
 import org.bremersee.tomtom.model.GeocodeResponse;
 import org.bremersee.tomtom.model.ReverseGeocodeResponse;
 import org.bremersee.web.ErrorDetectors;
-import org.bremersee.web.reactive.function.client.WebClientErrorDecoder;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient.Builder;
 import reactor.core.publisher.Mono;
 
 /**
+ * The reactive geocoding client implementation.
+ *
  * @author Christian Bremer
  */
+@SuppressWarnings("WeakerAccess")
 public class ReactiveGeocodingClientImpl extends AbstractReactiveClient
     implements ReactiveGeocodingClient {
 
+  /**
+   * Instantiates a new reactive geocoding client.
+   *
+   * @param properties the properties
+   */
+  public ReactiveGeocodingClientImpl(
+      TomTomProperties properties) {
+    this(properties, null);
+  }
+
+  /**
+   * Instantiates a new reactive geocoding client.
+   *
+   * @param properties the properties
+   * @param webClientBuilder the web client builder
+   */
   public ReactiveGeocodingClientImpl(
       TomTomProperties properties,
-      Builder webClientBuilder,
-      WebClientErrorDecoder<? extends Throwable> webClientErrorDecoder) {
-
-    super(properties, webClientBuilder, webClientErrorDecoder);
+      Builder webClientBuilder) {
+    super(properties, webClientBuilder, new ReactiveErrorDecoder());
   }
 
   @Override

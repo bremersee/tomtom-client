@@ -52,7 +52,11 @@ public class ReactiveRoutingClientImpl extends AbstractReactiveClient
   public ReactiveRoutingClientImpl(
       final TomTomProperties properties,
       final Builder webClientBuilder) {
-    super(properties, webClientBuilder, new ReactiveRoutingErrorDecoder());
+
+    super(
+        properties,
+        webClientBuilder,
+        new ReactiveErrorDecoder(new RoutingExceptionMessageParser()));
   }
 
   @Override

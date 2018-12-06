@@ -26,13 +26,21 @@ import org.bremersee.web.reactive.function.client.WebClientException;
 import org.springframework.web.reactive.function.client.ClientResponse;
 
 /**
- * The reactive routing error decoder.
+ * The reactive error decoder.
  *
  * @author Christian Bremer
  */
-public class ReactiveRoutingErrorDecoder extends AbstractWebClientErrorDecoder<WebClientException> {
+public class ReactiveErrorDecoder extends AbstractWebClientErrorDecoder<WebClientException> {
 
-  private static RoutingExceptionMessageParser parser = new RoutingExceptionMessageParser();
+  private final ExceptionMessageParser parser;
+
+  public ReactiveErrorDecoder() {
+    this(null);
+  }
+
+  public ReactiveErrorDecoder(ExceptionMessageParser parser) {
+    this.parser = parser != null ? parser : ExceptionMessageParser.defaultParser();
+  }
 
   @Override
   public WebClientException buildException(
