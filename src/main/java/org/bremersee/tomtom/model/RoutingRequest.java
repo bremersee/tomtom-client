@@ -18,21 +18,33 @@ package org.bremersee.tomtom.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import java.time.OffsetDateTime;
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.bremersee.tomtom.model.RoutingRequest.PostBody.AvoidAreas;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
 
 /**
  * @author Christian Bremer
  */
-public class RoutingRequest {
+@Getter
+@ToString
+@EqualsAndHashCode(callSuper = false)
+public class RoutingRequest extends AbstractRequest {
 
   /**
    * Locations through which the calculated route must pass.
@@ -40,8 +52,6 @@ public class RoutingRequest {
   private List<LatLonAware> locations;
 
   private List<LatitudeLongitude> supportingPoints;
-
-  //private String contentType = "json";
 
   /**
    * Number of alternative routes to be calculated.
@@ -84,7 +94,7 @@ public class RoutingRequest {
   /**
    * Specifies the representation of the set of routes provided as a response.
    */
-  private RouteRepresentation routeRepresentation = RouteRepresentation.POLYLINE;
+  private RouteRepresentation routeRepresentation;
 
   /**
    * Specifies whether to return additional travel times using different types of traffic
@@ -112,8 +122,6 @@ public class RoutingRequest {
    */
   private List<String> sectionType;
 
-  //private String callback;
-
   /**
    * Specifies which data should be reported for diagnosis purposes.
    */
@@ -121,14 +129,15 @@ public class RoutingRequest {
 
   /**
    * The date and time of departure from the origin point. Departure times apart from now must be
-   * specified as a dateTime.
+   * specified as a ISO8601 format (yyyy-mm-ddThh:mm:ssZ).
    */
-  private OffsetDateTime departAt;
+  private Instant departAt;
 
   /**
-   * The date and time of arrival at the destination point. It must be specified as a dateTime.
+   * The date and time of arrival at the destination point. It must be specified as a ISO8601 format
+   * (yyyy-mm-ddThh:mm:ssZ).
    */
-  private OffsetDateTime arriveAt;
+  private Instant arriveAt;
 
   /**
    * The type of route requested.
@@ -202,17 +211,17 @@ public class RoutingRequest {
   /**
    * Length of the vehicle in meters.
    */
-  private Float vehicleLength;
+  private BigDecimal vehicleLength;
 
   /**
    * Width of the vehicle in meters.
    */
-  private Float vehicleWidth;
+  private BigDecimal vehicleWidth;
 
   /**
    * Height of the vehicle in meters.
    */
-  private Float vehicleHeight;
+  private BigDecimal vehicleHeight;
 
   /**
    * Indicates that the vehicle is used for commercial purposes. This means it may not be allowed on
@@ -226,6 +235,202 @@ public class RoutingRequest {
    * travelMode=truck.
    */
   private List<VehicleLoadType> vehicleLoadType;
+
+  @Builder
+  public RoutingRequest(
+      List<LatLonAware> locations,
+      List<LatitudeLongitude> supportingPoints,
+      Integer maxAlternatives,
+      AlternativeType alternativeType,
+      Integer minDeviationDistance,
+      Integer minDeviationTime,
+      InstructionsType instructionsType,
+      Locale language,
+      Boolean computeBestOrder,
+      RouteRepresentation routeRepresentation,
+      TravelTime computeTravelTimeFor,
+      Integer vehicleHeading,
+      List<String> sectionType,
+      Report report,
+      Instant departAt,
+      Instant arriveAt,
+      RouteType routeType,
+      Boolean traffic,
+      List<Avoid> avoid,
+      List<Rectangle> avoidAreas,
+      List<Locale> avoidVignette,
+      List<Locale> allowVignette,
+      TravelMode travelMode,
+      Hilliness hilliness,
+      Windingness windingness,
+      Integer vehicleMaxSpeed,
+      Integer vehicleWeight,
+      Integer vehicleAxleWeight,
+      BigDecimal vehicleLength,
+      BigDecimal vehicleWidth,
+      BigDecimal vehicleHeight,
+      Boolean vehicleCommercial,
+      List<VehicleLoadType> vehicleLoadType) {
+
+    this.locations = locations;
+    this.supportingPoints = supportingPoints;
+    this.maxAlternatives = maxAlternatives;
+    this.alternativeType = alternativeType;
+    this.minDeviationDistance = minDeviationDistance;
+    this.minDeviationTime = minDeviationTime;
+    this.instructionsType = instructionsType;
+    this.language = language;
+    this.computeBestOrder = computeBestOrder;
+    this.routeRepresentation = routeRepresentation != null
+        ? routeRepresentation
+        : RouteRepresentation.POLYLINE;
+    this.computeTravelTimeFor = computeTravelTimeFor;
+    this.vehicleHeading = vehicleHeading;
+    this.sectionType = sectionType;
+    this.report = report;
+    this.departAt = departAt;
+    this.arriveAt = arriveAt;
+    this.routeType = routeType;
+    this.traffic = traffic;
+    this.avoid = avoid;
+    this.avoidAreas = avoidAreas;
+    this.avoidVignette = avoidVignette;
+    this.allowVignette = allowVignette;
+    this.travelMode = travelMode;
+    this.hilliness = hilliness;
+    this.windingness = windingness;
+    this.vehicleMaxSpeed = vehicleMaxSpeed;
+    this.vehicleWeight = vehicleWeight;
+    this.vehicleAxleWeight = vehicleAxleWeight;
+    this.vehicleLength = vehicleLength;
+    this.vehicleWidth = vehicleWidth;
+    this.vehicleHeight = vehicleHeight;
+    this.vehicleCommercial = vehicleCommercial;
+    this.vehicleLoadType = vehicleLoadType;
+  }
+
+  public String getPath() {
+    return "/" + buildLocations() + "/json";
+  }
+
+  private String buildLocations() {
+    final StringBuilder locationsBuilder = new StringBuilder();
+    if (locations != null) {
+      for (final LatLonAware latLon : locations) {
+        if (latLon.hasValues()) {
+          if (locationsBuilder.length() > 0) {
+            locationsBuilder.append(':');
+          }
+          locationsBuilder
+              .append(latLon.getLatitude().toPlainString())
+              .append(',')
+              .append(latLon.getLongitude().toPlainString());
+        }
+      }
+    }
+    return locationsBuilder.toString();
+  }
+
+  public MultiValueMap<String, String> buildParameters(final boolean urlEncode) {
+    final MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+    if (maxAlternatives != null) {
+      map.set("maxAlternatives", maxAlternatives.toString());
+    }
+    if (alternativeType != null) {
+      map.set("alternativeType", urlEncode(alternativeType.getValue(), urlEncode));
+    }
+    if (minDeviationDistance != null) {
+      map.set("minDeviationDistance", minDeviationDistance.toString());
+    }
+    if (minDeviationTime != null) {
+      map.set("minDeviationTime", minDeviationTime.toString());
+    }
+    if (instructionsType != null) {
+      map.set("instructionsType", urlEncode(instructionsType.getValue(), urlEncode));
+    }
+    if (language != null && StringUtils.hasText(language.getLanguage())) {
+      map.set("language", urlEncode(language.getLanguage(), urlEncode));
+    }
+    if (computeBestOrder != null) {
+      map.set("computeBestOrder", computeBestOrder.toString());
+    }
+    if (routeRepresentation != null) {
+      map.set("routeRepresentation", urlEncode(routeRepresentation.getValue(), urlEncode));
+    }
+    if (computeTravelTimeFor != null) {
+      map.set("computeTravelTimeFor", urlEncode(computeTravelTimeFor.getValue(), urlEncode));
+    }
+    if (vehicleHeading != null) {
+      map.set("vehicleHeading", vehicleHeading.toString());
+    }
+    if (sectionType != null && !sectionType.isEmpty()) {
+      map.set("sectionType", urlEncode(
+          StringUtils.collectionToCommaDelimitedString(sectionType),
+          urlEncode));
+    }
+    if (report != null) {
+      map.set("report", urlEncode(report.getValue(), urlEncode));
+    }
+    if (departAt != null) {
+      map.set("departAt", urlEncode(
+          departAt.atZone(ZoneId.of("UTC")).format(DateTimeFormatter.ISO_DATE_TIME),
+          urlEncode));
+    }
+    if (arriveAt != null) {
+      map.set("arriveAt", urlEncode(
+          arriveAt.atZone(ZoneId.of("UTC")).format(DateTimeFormatter.ISO_DATE_TIME),
+          urlEncode));
+    }
+    if (routeType != null) {
+      map.set("routeType", urlEncode(routeType.getValue(), urlEncode));
+    }
+    if (traffic != null) {
+      map.set("traffic", traffic.toString());
+    }
+    if (avoid != null && !avoid.isEmpty()) {
+      map.set("avoid", urlEncode(
+          StringUtils.collectionToCommaDelimitedString(
+              avoid.stream().map(Avoid::getValue).collect(Collectors.toList())),
+          urlEncode));
+    }
+    if (travelMode != null) {
+      map.set("travelMode", urlEncode(travelMode.getValue(), urlEncode));
+    }
+    if (hilliness != null) {
+      map.set("hilliness", urlEncode(hilliness.getValue(), urlEncode));
+    }
+    if (windingness != null) {
+      map.set("windingness", urlEncode(windingness.getValue(), urlEncode));
+    }
+    if (vehicleMaxSpeed != null) {
+      map.set("vehicleMaxSpeed", vehicleMaxSpeed.toString());
+    }
+    if (vehicleWeight != null) {
+      map.set("vehicleWeight", vehicleWeight.toString());
+    }
+    if (vehicleAxleWeight != null) {
+      map.set("vehicleAxleWeight", vehicleAxleWeight.toString());
+    }
+    if (vehicleLength != null) {
+      map.set("vehicleLength", vehicleLength.toPlainString());
+    }
+    if (vehicleWidth != null) {
+      map.set("vehicleWidth", vehicleWidth.toPlainString());
+    }
+    if (vehicleHeight != null) {
+      map.set("vehicleHeight", vehicleHeight.toPlainString());
+    }
+    if (vehicleCommercial != null) {
+      map.set("vehicleCommercial", vehicleCommercial.toString());
+    }
+    if (vehicleLoadType != null && !vehicleLoadType.isEmpty()) {
+      map.set("vehicleLoadType", urlEncode(
+          StringUtils.collectionToCommaDelimitedString(
+              vehicleLoadType.stream().map(VehicleLoadType::getValue).collect(Collectors.toList())),
+          urlEncode));
+    }
+    return map;
+  }
 
   public boolean hasPostBody() {
     return (supportingPoints != null && !supportingPoints.isEmpty())
