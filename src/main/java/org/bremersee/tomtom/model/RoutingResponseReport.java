@@ -30,20 +30,8 @@ import org.bremersee.plain.model.UnknownAware;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
-public class RoutingResponse extends UnknownAware {
+public class RoutingResponseReport extends UnknownAware {
 
-  private String formatVersion;
-
-  private String copyright;
-
-  private String privacy;
-
-  private RouteError error;
-
-  private List<Route> routes;
-
-  private List<OptimizedWaypoint> optimizedWaypoints;
-
-  private RoutingResponseReport report;
+  private List<KeyValue> effectiveSettings;
 
 }

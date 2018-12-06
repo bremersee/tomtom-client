@@ -16,14 +16,8 @@
 
 package org.bremersee.tomtom.client;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import java.util.Collections;
 import java.util.Locale;
-import org.bremersee.tomtom.TomTomProperties;
 import org.bremersee.tomtom.model.GeocodeRequest;
 import org.bremersee.tomtom.model.GeocodeResponse;
 import org.bremersee.tomtom.model.Language;
@@ -40,30 +34,17 @@ import org.springframework.util.StringUtils;
  *
  * @author Christian Bremer
  */
-public class DefaultGeocodingClientTest {
-
-  private static TomTomProperties properties;
+public class DefaultGeocodingClientTest extends Setup {
 
   private static DefaultGeocodingClient geocodingClient;
 
-  private static final ObjectMapper objectMapper = new ObjectMapper();
-
   /**
-   * Setup test.
+   * Init test.
    */
   @BeforeClass
-  public static void setup() {
-    properties = new TomTomProperties();
-    properties.setKey(System.getProperty("tomTomKey"));
-
-    geocodingClient = new DefaultGeocodingClient(properties, null);
-
-    objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-    objectMapper.enable(SerializationFeature.WRITE_DATES_WITH_ZONE_ID);
-    objectMapper.registerModules(
-        new Jdk8Module(),
-        new JavaTimeModule(),
-        new ParameterNamesModule());
+  public static void init() {
+    setup();
+    geocodingClient = new DefaultGeocodingClient(properties, objectMapper);
   }
 
   /**

@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -423,12 +424,12 @@ public class RoutingRequest extends AbstractRequest {
     }
     if (departAt != null) {
       map.set("departAt", urlEncode(
-          departAt.atZone(ZoneId.of("UTC")).format(DateTimeFormatter.ISO_DATE_TIME),
+          departAt.atOffset(ZoneOffset.UTC).format(DateTimeFormatter.ISO_DATE_TIME),
           urlEncode));
     }
     if (arriveAt != null) {
       map.set("arriveAt", urlEncode(
-          arriveAt.atZone(ZoneId.of("UTC")).format(DateTimeFormatter.ISO_DATE_TIME),
+          arriveAt.atOffset(ZoneOffset.UTC).format(DateTimeFormatter.ISO_DATE_TIME),
           urlEncode));
     }
     if (routeType != null) {

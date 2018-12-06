@@ -34,7 +34,7 @@ import org.bremersee.plain.model.UnknownAware;
 @EqualsAndHashCode(callSuper = false)
 public class ReverseGeocodeResponse extends UnknownAware {
 
-  private Summary summary;
+  private GeocodeSummary summary;
 
   private List<AddressWithPositionString> addresses;
 

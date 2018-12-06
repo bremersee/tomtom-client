@@ -21,6 +21,10 @@ import org.bremersee.tomtom.model.RoutingRequest;
 /**
  * General TomTom routing client interface.
  *
+ * <p>See
+ * <a href="https://developer.tomtom.com/routing-api/routing-api-documentation-routing/calculate-route">
+ * Routing API</a>
+ *
  * @param <R> the routing response type, e. g. {@literal RoutingResponse} or {@literal
  * Mono<RoutingResponse>}
  * @author Christian Bremer

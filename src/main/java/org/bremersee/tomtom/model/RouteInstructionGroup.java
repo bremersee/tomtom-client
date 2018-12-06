@@ -30,20 +30,15 @@ import org.bremersee.plain.model.UnknownAware;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
-public class RoutingResponse extends UnknownAware {
+@SuppressWarnings("WeakerAccess")
+public class RouteInstructionGroup extends UnknownAware {
 
-  private String formatVersion;
+  private Integer firstInstructionIndex;
 
-  private String copyright;
+  private Integer lastInstructionIndex;
 
-  private String privacy;
+  private String groupMessage;
 
-  private RouteError error;
-
-  private List<Route> routes;
-
-  private List<OptimizedWaypoint> optimizedWaypoints;
-
-  private RoutingResponseReport report;
+  private Integer groupLengthInMeters;
 
 }

@@ -16,7 +16,6 @@
 
 package org.bremersee.tomtom.model;
 
-import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,26 +23,31 @@ import lombok.ToString;
 import org.bremersee.plain.model.UnknownAware;
 
 /**
+ * The geocode summary.
+ *
  * @author Christian Bremer
  */
 @Getter
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
-public class RoutingResponse extends UnknownAware {
+@SuppressWarnings("WeakerAccess")
+public class GeocodeSummary extends UnknownAware {
 
-  private String formatVersion;
+  private String query;
 
-  private String copyright;
+  private String queryType;
 
-  private String privacy;
+  private String queryTime;
 
-  private RouteError error;
+  private Integer numResults;
 
-  private List<Route> routes;
+  private Integer offset;
 
-  private List<OptimizedWaypoint> optimizedWaypoints;
+  private Integer totalResults;
 
-  private RoutingResponseReport report;
+  private Integer fuzzyLevel;
+
+  private LatLon geoBias;
 
 }

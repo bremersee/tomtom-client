@@ -16,6 +16,7 @@
 
 package org.bremersee.tomtom.model;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -30,20 +31,15 @@ import org.bremersee.plain.model.UnknownAware;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
-public class RoutingResponse extends UnknownAware {
+@SuppressWarnings("WeakerAccess")
+public class Route extends UnknownAware {
 
-  private String formatVersion;
+  private RouteSummary summary;
 
-  private String copyright;
+  private List<RouteLeg> legs;
 
-  private String privacy;
+  private List<RouteSection> sections;
 
-  private RouteError error;
-
-  private List<Route> routes;
-
-  private List<OptimizedWaypoint> optimizedWaypoints;
-
-  private RoutingResponseReport report;
+  private RouteGuidance guidance;
 
 }

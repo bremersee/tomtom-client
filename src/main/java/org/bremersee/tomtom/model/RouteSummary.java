@@ -16,6 +16,8 @@
 
 package org.bremersee.tomtom.model;
 
+import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,8 +25,6 @@ import lombok.ToString;
 import org.bremersee.plain.model.UnknownAware;
 
 /**
- * The summary.
- *
  * @author Christian Bremer
  */
 @Getter
@@ -32,22 +32,32 @@ import org.bremersee.plain.model.UnknownAware;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
 @SuppressWarnings("WeakerAccess")
-public class Summary extends UnknownAware {
+public class RouteSummary extends UnknownAware {
 
-  private String query;
+  private Integer lengthInMeters;
 
-  private String queryType;
+  private Integer travelTimeInSeconds;
 
-  private String queryTime;
+  private Integer trafficDelayInSeconds;
 
-  private Integer numResults;
+  private OffsetDateTime departureTime;
 
-  private Integer offset;
+  private OffsetDateTime arrivalTime;
 
-  private Integer totalResults;
+  private Integer noTrafficTravelTimeInSeconds;
 
-  private Integer fuzzyLevel;
+  private Integer historicTrafficTravelTimeInSeconds;
 
-  private LatLon geoBias;
+  private Integer liveTrafficIncidentsTravelTimeInSeconds;
+
+  private BigDecimal fuelConsumptionInLiters;
+
+  private BigDecimal batteryConsumptionInkWh;
+
+  private Integer deviationDistance;
+
+  private Integer deviationTime;
+
+  private LatitudeLongitude deviationPoint;
 
 }
