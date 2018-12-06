@@ -24,6 +24,8 @@ import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import org.bremersee.tomtom.TomTomProperties;
 
 /**
+ * The common test setup.
+ *
  * @author Christian Bremer
  */
 abstract class Setup {
