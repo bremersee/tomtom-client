@@ -26,7 +26,9 @@ import java.nio.charset.StandardCharsets;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import org.bremersee.exception.HttpClientException;
 import org.bremersee.exception.ServiceException;
+import org.bremersee.exception.model.RestApiException;
 import org.bremersee.tomtom.TomTomProperties;
 import org.bremersee.tomtom.exception.ErrorCodeConstants;
 import org.springframework.util.FileCopyUtils;
@@ -104,11 +106,19 @@ public abstract class AbstractDefaultClient extends AbstractClient {
           final String body = new String(
               FileCopyUtils.copyToByteArray(errorStream), StandardCharsets.UTF_8);
           final String message = exceptionMessageParser.getExceptionMessage(body);
-          throw new ServiceException(statusCode, message, ErrorCodeConstants.GENERAL_REQUEST_ERROR);
+          final RestApiException restApiException = new RestApiException();
+          restApiException.setErrorCode(ErrorCodeConstants.GENERAL_REQUEST_ERROR);
+          restApiException.setMessage(message);
+          restApiException.setRequestPath(url.getPath());
+          throw new HttpClientException(
+              statusCode,
+              "Calling remote api failed.",
+              null,
+              restApiException);
 
         } catch (IOException e) {
           throw new ServiceException(
-              statusCode,
+              500,
               "Reading error stream failed.",
               ErrorCodeConstants.GENERAL_REQUEST_ERROR,
               e);
