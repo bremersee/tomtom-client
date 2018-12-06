@@ -20,7 +20,6 @@ import org.bremersee.tomtom.TomTomProperties;
 import org.bremersee.tomtom.model.RoutingRequest;
 import org.bremersee.tomtom.model.RoutingResponse;
 import org.bremersee.web.ErrorDetectors;
-import org.bremersee.web.reactive.function.client.WebClientErrorDecoder;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient.Builder;
@@ -31,6 +30,7 @@ import reactor.core.publisher.Mono;
  *
  * @author Christian Bremer
  */
+@SuppressWarnings("WeakerAccess")
 public class ReactiveRoutingClientImpl extends AbstractReactiveClient
     implements ReactiveRoutingClient {
 
@@ -38,14 +38,21 @@ public class ReactiveRoutingClientImpl extends AbstractReactiveClient
    * Instantiates a new reactive routing client.
    *
    * @param properties the properties
+   */
+  public ReactiveRoutingClientImpl(final TomTomProperties properties) {
+    this(properties, null);
+  }
+
+  /**
+   * Instantiates a new reactive routing client.
+   *
+   * @param properties the properties
    * @param webClientBuilder the web client builder
-   * @param webClientErrorDecoder the web client error decoder
    */
   public ReactiveRoutingClientImpl(
       final TomTomProperties properties,
-      final Builder webClientBuilder,
-      final WebClientErrorDecoder<? extends Throwable> webClientErrorDecoder) {
-    super(properties, webClientBuilder, webClientErrorDecoder);
+      final Builder webClientBuilder) {
+    super(properties, webClientBuilder, new ReactiveRoutingErrorDecoder());
   }
 
   @Override

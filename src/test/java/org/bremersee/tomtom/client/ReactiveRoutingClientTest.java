@@ -52,7 +52,7 @@ public class ReactiveRoutingClientTest extends Setup {
   @BeforeClass
   public static void init() {
     setup();
-    routingClient = new ReactiveRoutingClientImpl(properties, null, null);
+    routingClient = new ReactiveRoutingClientImpl(properties);
     ((ReactiveRoutingClientImpl) routingClient).setObjectMapper(objectMapper);
   }
 
