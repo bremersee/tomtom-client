@@ -19,10 +19,8 @@ package org.bremersee.tomtom.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.math.BigDecimal;
-import java.time.Instant;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -133,13 +131,13 @@ public class RoutingRequest extends AbstractRequest {
    * The date and time of departure from the origin point. Departure times apart from now must be
    * specified as a ISO8601 format (yyyy-mm-ddThh:mm:ssZ).
    */
-  private Instant departAt;
+  private Date departAt;
 
   /**
    * The date and time of arrival at the destination point. It must be specified as a ISO8601 format
    * (yyyy-mm-ddThh:mm:ssZ).
    */
-  private Instant arriveAt;
+  private Date arriveAt;
 
   /**
    * The type of route requested.
@@ -291,8 +289,8 @@ public class RoutingRequest extends AbstractRequest {
       Integer vehicleHeading,
       List<String> sectionType,
       Report report,
-      Instant departAt,
-      Instant arriveAt,
+      Date departAt,
+      Date arriveAt,
       RouteType routeType,
       Boolean traffic,
       List<Avoid> avoid,
@@ -422,14 +420,10 @@ public class RoutingRequest extends AbstractRequest {
       map.set("report", urlEncode(report.getValue(), urlEncode));
     }
     if (departAt != null) {
-      map.set("departAt", urlEncode(
-          departAt.atOffset(ZoneOffset.UTC).format(DateTimeFormatter.ISO_DATE_TIME),
-          urlEncode));
+      map.set("departAt", DateTimeUtil.formatDateTime(departAt));
     }
     if (arriveAt != null) {
-      map.set("arriveAt", urlEncode(
-          arriveAt.atOffset(ZoneOffset.UTC).format(DateTimeFormatter.ISO_DATE_TIME),
-          urlEncode));
+      map.set("arriveAt", DateTimeUtil.formatDateTime(arriveAt));
     }
     if (routeType != null) {
       map.set("routeType", urlEncode(routeType.getValue(), urlEncode));

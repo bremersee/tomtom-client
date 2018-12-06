@@ -45,6 +45,7 @@ public class ReactiveGeocodingClientImpl extends AbstractReactiveClient
   public Mono<GeocodeResponse> geocode(AbstractGeocodeRequest request) {
     final String baseUri = getProperties().getGeocodeUri() + request.getPath();
     final MultiValueMap<String, String> params = request.buildParameters(true);
+    params.set("key", getProperties().getKey());
     return getWebClientBuilder()
         .baseUrl(baseUri)
         .build()
@@ -60,6 +61,7 @@ public class ReactiveGeocodingClientImpl extends AbstractReactiveClient
   public Mono<ReverseGeocodeResponse> reverseGeocode(AbstractReverseGeocodeRequest request) {
     final String baseUri = getProperties().getReverseGeocodeUri() + request.getPath();
     final MultiValueMap<String, String> params = request.buildParameters(true);
+    params.set("key", getProperties().getKey());
     return getWebClientBuilder()
         .baseUrl(baseUri)
         .build()

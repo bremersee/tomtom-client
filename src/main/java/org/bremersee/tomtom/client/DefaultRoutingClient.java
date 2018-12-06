@@ -24,11 +24,20 @@ import org.bremersee.tomtom.model.RoutingResponse;
 import org.springframework.util.MultiValueMap;
 
 /**
+ * The default routing client.
+ *
  * @author Christian Bremer
  */
+@SuppressWarnings("WeakerAccess")
 public class DefaultRoutingClient extends AbstractDefaultClient
     implements TraditionalRoutingClient {
 
+  /**
+   * Instantiates a new default routing client.
+   *
+   * @param properties the properties
+   * @param objectMapper the object mapper (can be {@code null})
+   */
   public DefaultRoutingClient(
       final TomTomProperties properties,
       final ObjectMapper objectMapper) {
@@ -45,4 +54,5 @@ public class DefaultRoutingClient extends AbstractDefaultClient
     }
     return call(url, HttpMethod.GET, null, RoutingResponse.class);
   }
+
 }

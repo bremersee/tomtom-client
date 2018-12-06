@@ -30,7 +30,7 @@ import org.junit.Test;
 import org.springframework.util.StringUtils;
 
 /**
- * The default geocoding client tests.
+ * Test of the default geocoding client.
  *
  * @author Christian Bremer
  */

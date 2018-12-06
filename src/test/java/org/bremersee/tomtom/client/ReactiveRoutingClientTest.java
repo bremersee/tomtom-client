@@ -35,15 +35,16 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.util.StringUtils;
+import reactor.core.publisher.Mono;
 
 /**
- * Test of the default routing client.
+ * Test of the reactive routing client.
  *
  * @author Christian Bremer
  */
-public class DefaultRoutingClientTest extends Setup {
+public class ReactiveRoutingClientTest extends Setup {
 
-  private static DefaultRoutingClient routingClient;
+  private static ReactiveRoutingClient routingClient;
 
   /**
    * Init test.
@@ -51,7 +52,8 @@ public class DefaultRoutingClientTest extends Setup {
   @BeforeClass
   public static void init() {
     setup();
-    routingClient = new DefaultRoutingClient(properties, objectMapper);
+    routingClient = new ReactiveRoutingClientImpl(properties, null, null);
+    ((ReactiveRoutingClientImpl) routingClient).setObjectMapper(objectMapper);
   }
 
   @Test
@@ -88,7 +90,9 @@ public class DefaultRoutingClientTest extends Setup {
         .departAt(new Date(System.currentTimeMillis() + 1000L * 60L * 60L))
         .build();
 
-    RoutingResponse res = routingClient.calculateRoute(req);
+    Mono<RoutingResponse> mono = routingClient.calculateRoute(req);
+    Assert.assertNotNull(mono);
+    RoutingResponse res = mono.block();
     Assert.assertNotNull(res);
 
     System.out.println("### Routing response:");
@@ -122,7 +126,9 @@ public class DefaultRoutingClientTest extends Setup {
         .departAt(new Date(System.currentTimeMillis() + 1000L * 60L * 60L))
         .build();
 
-    RoutingResponse res = routingClient.calculateRoute(req);
+    Mono<RoutingResponse> mono = routingClient.calculateRoute(req);
+    Assert.assertNotNull(mono);
+    RoutingResponse res = mono.block();
     Assert.assertNotNull(res);
 
     System.out.println("### Routing response:");
@@ -167,7 +173,9 @@ public class DefaultRoutingClientTest extends Setup {
         .departAt(new Date(System.currentTimeMillis() + 1000L * 60L * 60L))
         .build();
 
-    RoutingResponse res = routingClient.calculateRoute(req);
+    Mono<RoutingResponse> mono = routingClient.calculateRoute(req);
+    Assert.assertNotNull(mono);
+    RoutingResponse res = mono.block();
     Assert.assertNotNull(res);
 
     System.out.println("### Routing response:");

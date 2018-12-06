@@ -16,17 +16,65 @@
 
 package org.bremersee.tomtom.client;
 
+import org.bremersee.tomtom.TomTomProperties;
 import org.bremersee.tomtom.model.RoutingRequest;
 import org.bremersee.tomtom.model.RoutingResponse;
+import org.bremersee.web.ErrorDetectors;
+import org.bremersee.web.reactive.function.client.WebClientErrorDecoder;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.reactive.function.BodyInserters;
+import org.springframework.web.reactive.function.client.WebClient.Builder;
 import reactor.core.publisher.Mono;
 
 /**
+ * The reactive routing client implementation.
+ *
  * @author Christian Bremer
  */
-public class ReactiveRoutingClientImpl implements ReactiveRoutingClient {
+public class ReactiveRoutingClientImpl extends AbstractReactiveClient
+    implements ReactiveRoutingClient {
+
+  /**
+   * Instantiates a new reactive routing client.
+   *
+   * @param properties the properties
+   * @param webClientBuilder the web client builder
+   * @param webClientErrorDecoder the web client error decoder
+   */
+  public ReactiveRoutingClientImpl(
+      final TomTomProperties properties,
+      final Builder webClientBuilder,
+      final WebClientErrorDecoder<? extends Throwable> webClientErrorDecoder) {
+    super(properties, webClientBuilder, webClientErrorDecoder);
+  }
 
   @Override
-  public Mono<RoutingResponse> calculateRoute(RoutingRequest request) {
-    return null;
+  public Mono<RoutingResponse> calculateRoute(final RoutingRequest request) {
+    final String baseUri = getProperties().getRoutingUri() + request.getPath();
+    final MultiValueMap<String, String> params = request.buildParameters(true);
+    params.set("key", getProperties().getKey());
+    if (request.hasPostBody()) {
+      return getWebClientBuilder()
+          .baseUrl(baseUri)
+          .build()
+          .post()
+          .uri(uriBuilder -> uriBuilder.queryParams(params).build())
+          .header("User-Agent", getProperties().getUserAgent())
+          .header("Content-Type", "application/json")
+          .body(BodyInserters.fromObject(request.buildPostBody()))
+          .retrieve()
+          .onStatus(ErrorDetectors.DEFAULT, getWebClientErrorDecoder())
+          .bodyToMono(RoutingResponse.class);
+    } else {
+      return getWebClientBuilder()
+          .baseUrl(baseUri)
+          .build()
+          .get()
+          .uri(uriBuilder -> uriBuilder.queryParams(params).build())
+          .header("User-Agent", getProperties().getUserAgent())
+          .retrieve()
+          .onStatus(ErrorDetectors.DEFAULT, getWebClientErrorDecoder())
+          .bodyToMono(RoutingResponse.class);
+    }
   }
 }
