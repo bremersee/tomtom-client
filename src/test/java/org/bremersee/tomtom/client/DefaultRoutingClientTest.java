@@ -20,8 +20,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
+import org.bremersee.exception.ServiceException;
 import org.bremersee.tomtom.model.LatLonAware;
 import org.bremersee.tomtom.model.RoutingRequest;
+import org.bremersee.tomtom.model.RoutingRequest.AlternativeType;
 import org.bremersee.tomtom.model.RoutingRequest.Hilliness;
 import org.bremersee.tomtom.model.RoutingRequest.InstructionsType;
 import org.bremersee.tomtom.model.RoutingRequest.Report;
@@ -172,6 +174,58 @@ public class DefaultRoutingClientTest extends Setup {
 
     System.out.println("### Routing response:");
     System.out.println(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(res));
+  }
+
+  @Test(expected = ServiceException.class)
+  public void testRoutingWithException() {
+    if (!StringUtils.hasText(properties.getKey())) {
+      throw new ServiceException(500, "No key present.");
+    }
+
+    LatLonAware p0 = LatLonAware
+        .builder()
+        .latitude(52.35116)
+        .longitude(10.18285)
+        .build();
+    LatLonAware p1 = LatLonAware
+        .builder()
+        .latitude(52.34814)
+        .longitude(10.18638)
+        .build();
+
+    try {
+      RoutingRequest req = RoutingRequest
+          .builder()
+          .locations(Arrays.asList(p0, p1))
+          .language(Locale.GERMAN)
+          .alternativeType(AlternativeType.ANY_ROUTE)
+          // cannot specify alternativeType without route to reconstruct -> supportingPoints?
+          .instructionsType(InstructionsType.TAGGED)
+          .routeRepresentation(RouteRepresentation.POLYLINE)
+          .travelMode(TravelMode.TRUCK)
+          .routeType(RouteType.FASTEST)
+          .computeBestOrder(Boolean.FALSE)
+          // cannot optimize waypoints and calculate alternative routes at same time!
+          .computeTravelTimeFor(TravelTime.ALL)
+          .maxAlternatives(3)
+          .report(Report.EFFECTIVE_SETTINGS)
+          .traffic(Boolean.TRUE)
+          //.avoidVignette(Arrays.asList(Locale.FRANCE, Locale.ITALY)) // you can't set both
+          .allowVignette(Collections.singletonList(Locale.GERMANY))
+          .departAt(new Date(System.currentTimeMillis() + 1000L * 60L * 60L))
+          .build();
+
+      routingClient.calculateRoute(req);
+
+    } catch (ServiceException e) {
+
+      String message = e.getMessage();
+      Assert.assertNotNull(message);
+      System.out.println("Got an exception message: " + message);
+      Assert.assertTrue(message.contains("Invalid request"));
+      throw e;
+    }
+
   }
 
 }

@@ -42,6 +42,7 @@ public class DefaultRoutingClient extends AbstractDefaultClient
       final TomTomProperties properties,
       final ObjectMapper objectMapper) {
     super(properties, objectMapper);
+    setExceptionMessageParser(new RoutingExceptionMessageParser());
   }
 
   @Override

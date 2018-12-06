@@ -23,6 +23,9 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import org.bremersee.exception.ServiceException;
 import org.bremersee.tomtom.TomTomProperties;
 import org.bremersee.tomtom.exception.ErrorCodeConstants;
@@ -36,6 +39,10 @@ import org.springframework.util.StringUtils;
  */
 @SuppressWarnings("WeakerAccess")
 public abstract class AbstractDefaultClient extends AbstractClient {
+
+  @Getter(AccessLevel.PROTECTED)
+  @Setter(AccessLevel.PROTECTED)
+  private ExceptionMessageParser exceptionMessageParser = ExceptionMessageParser.defaultParser();
 
   /**
    * Instantiates a new abstract default client.
@@ -96,7 +103,8 @@ public abstract class AbstractDefaultClient extends AbstractClient {
         try (InputStream errorStream = con.getErrorStream()) {
           final String body = new String(
               FileCopyUtils.copyToByteArray(errorStream), StandardCharsets.UTF_8);
-          throw new ServiceException(statusCode, body, ErrorCodeConstants.GENERAL_REQUEST_ERROR);
+          final String message = exceptionMessageParser.getExceptionMessage(body);
+          throw new ServiceException(statusCode, message, ErrorCodeConstants.GENERAL_REQUEST_ERROR);
 
         } catch (IOException e) {
           throw new ServiceException(
