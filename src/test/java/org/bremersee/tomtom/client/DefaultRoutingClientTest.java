@@ -113,10 +113,15 @@ public class DefaultRoutingClientTest extends Setup {
         .latitude(52.34814)
         .longitude(10.18638)
         .build();
+    LatLonAware p2 = LatLonAware
+        .builder()
+        .latitude(52.34213)
+        .longitude(10.17882)
+        .build();
 
     RoutingRequest req = RoutingRequest
         .builder()
-        .locations(Arrays.asList(p0, p1))
+        .locations(Arrays.asList(p0, p1, p2))
         .instructionsType(InstructionsType.TAGGED)
         .routeRepresentation(RouteRepresentation.POLYLINE)
         .travelMode(TravelMode.PEDESTRIAN)

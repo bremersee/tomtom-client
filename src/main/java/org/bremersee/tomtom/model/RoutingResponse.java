@@ -51,14 +51,12 @@ public class RoutingResponse extends UnknownAware {
   /**
    * Optimized sequence of waypoints. It shows the index from the user provided waypoint sequence
    * for the original and optimized list. For instance, a response:
-   * <pre>
-   * {@literal
+   * <pre>{@literal
    * <optimizedWaypoints>
    * <waypoint providedIndex="0" optimizedIndex="1"/>
    * <waypoint providedIndex="1" optimizedIndex="2"/>
    * <waypoint providedIndex="2" optimizedIndex="0"/>
-   * </optimizedWaypoints>
-   * }
+   * </optimizedWaypoints>}
    * </pre>
    * means that the original sequence is [0, 1, 2] and optimized sequence is [1, 2, 0]. Since the
    * index starts by 0 the original is "first, second, third" while the optimized is "second, third,
