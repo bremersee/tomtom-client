@@ -30,8 +30,14 @@ import org.bremersee.tomtom.TomTomProperties;
  */
 abstract class Setup {
 
+  /**
+   * The properties.
+   */
   static TomTomProperties properties;
 
+  /**
+   * The object mapper.
+   */
   static final ObjectMapper objectMapper = new ObjectMapper();
 
   /**

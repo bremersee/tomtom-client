@@ -40,10 +40,11 @@ public class Rectangle extends UnknownAware {
   private LatitudeLongitude northEastCorner;
 
   /**
-   * Has values?
+   * Determines whether this rectangle has values.
    *
-   * @return the boolean
+   * @return {@code true} if values are present, otherwise {@code false}
    */
+  @SuppressWarnings("unused")
   public boolean hasValues() {
     return southWestCorner != null && southWestCorner.hasValues()
         && northEastCorner != null && northEastCorner.hasValues();

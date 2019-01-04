@@ -239,39 +239,39 @@ public class RoutingRequest extends AbstractRequest {
   /**
    * Instantiates a new routing request.
    *
-   * @param locations the locations
-   * @param supportingPoints the supporting points
-   * @param maxAlternatives the max alternatives
-   * @param alternativeType the alternative type
+   * @param locations            the locations
+   * @param supportingPoints     the supporting points
+   * @param maxAlternatives      the max alternatives
+   * @param alternativeType      the alternative type
    * @param minDeviationDistance the min deviation distance
-   * @param minDeviationTime the min deviation time
-   * @param instructionsType the instructions type
-   * @param language the language
-   * @param computeBestOrder the compute best order
-   * @param routeRepresentation the route representation
+   * @param minDeviationTime     the min deviation time
+   * @param instructionsType     the instructions type
+   * @param language             the language
+   * @param computeBestOrder     the compute best order
+   * @param routeRepresentation  the route representation
    * @param computeTravelTimeFor the compute travel time for
-   * @param vehicleHeading the vehicle heading
-   * @param sectionType the section type
-   * @param report the report
-   * @param departAt the depart at
-   * @param arriveAt the arrive at
-   * @param routeType the route type
-   * @param traffic the traffic
-   * @param avoid the avoid
-   * @param avoidAreas the avoid areas
-   * @param avoidVignette the avoid vignette
-   * @param allowVignette the allow vignette
-   * @param travelMode the travel mode
-   * @param hilliness the hilliness
-   * @param windingness the windingness
-   * @param vehicleMaxSpeed the vehicle max speed
-   * @param vehicleWeight the vehicle weight
-   * @param vehicleAxleWeight the vehicle axle weight
-   * @param vehicleLength the vehicle length
-   * @param vehicleWidth the vehicle width
-   * @param vehicleHeight the vehicle height
-   * @param vehicleCommercial the vehicle commercial
-   * @param vehicleLoadType the vehicle load type
+   * @param vehicleHeading       the vehicle heading
+   * @param sectionType          the section type
+   * @param report               the report
+   * @param departAt             the depart at
+   * @param arriveAt             the arrive at
+   * @param routeType            the route type
+   * @param traffic              the traffic
+   * @param avoid                the avoid
+   * @param avoidAreas           the avoid areas
+   * @param avoidVignette        the avoid vignette
+   * @param allowVignette        the allow vignette
+   * @param travelMode           the travel mode
+   * @param hilliness            the hilliness
+   * @param windingness          the windingness
+   * @param vehicleMaxSpeed      the vehicle max speed
+   * @param vehicleWeight        the vehicle weight
+   * @param vehicleAxleWeight    the vehicle axle weight
+   * @param vehicleLength        the vehicle length
+   * @param vehicleWidth         the vehicle width
+   * @param vehicleHeight        the vehicle height
+   * @param vehicleCommercial    the vehicle commercial
+   * @param vehicleLoadType      the vehicle load type
    */
   @Builder
   public RoutingRequest(

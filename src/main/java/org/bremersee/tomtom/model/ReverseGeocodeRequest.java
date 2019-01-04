@@ -63,13 +63,13 @@ public class ReverseGeocodeRequest extends AbstractReverseGeocodeRequest {
   /**
    * Instantiates a new reverse geocode request.
    *
-   * @param position the position
-   * @param heading the heading
-   * @param radius the radius
+   * @param position         the position
+   * @param heading          the heading
+   * @param radius           the radius
    * @param returnSpeedLimit the return speed limit
-   * @param number the number
-   * @param returnRoadUse the return road use
-   * @param roadUse the road use
+   * @param number           the number
+   * @param returnRoadUse    the return road use
+   * @param roadUse          the road use
    */
   @Builder
   public ReverseGeocodeRequest(
@@ -110,6 +110,7 @@ public class ReverseGeocodeRequest extends AbstractReverseGeocodeRequest {
   /**
    * The enum road use.
    */
+  @SuppressWarnings("unused")
   public enum RoadUse {
 
     /**

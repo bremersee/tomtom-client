@@ -56,6 +56,11 @@ public class DefaultRoutingClientTest extends Setup {
     routingClient = new DefaultRoutingClient(properties, objectMapper);
   }
 
+  /**
+   * Test long routing.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testLongRouting() throws Exception {
     if (!StringUtils.hasText(properties.getKey())) {
@@ -97,6 +102,11 @@ public class DefaultRoutingClientTest extends Setup {
     System.out.println(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(res));
   }
 
+  /**
+   * Test short routing.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testShortRouting() throws Exception {
     if (!StringUtils.hasText(properties.getKey())) {
@@ -136,6 +146,11 @@ public class DefaultRoutingClientTest extends Setup {
     System.out.println(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(res));
   }
 
+  /**
+   * Test short routing with post.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testShortRoutingWithPost() throws Exception {
     if (!StringUtils.hasText(properties.getKey())) {
@@ -181,6 +196,9 @@ public class DefaultRoutingClientTest extends Setup {
     System.out.println(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(res));
   }
 
+  /**
+   * Test routing with exception.
+   */
   @Test(expected = ServiceException.class)
   public void testRoutingWithException() {
     if (!StringUtils.hasText(properties.getKey())) {

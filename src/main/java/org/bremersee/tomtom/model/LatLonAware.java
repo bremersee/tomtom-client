@@ -40,7 +40,7 @@ public interface LatLonAware {
   BigDecimal getLongitude();
 
   /**
-   * Is latitude and longitude not {@code null}?
+   * Determines whether latitude and longitude have values.
    *
    * @return {@code true} if latitude and longitude is not {@code null}, otherwise {@code false}
    */

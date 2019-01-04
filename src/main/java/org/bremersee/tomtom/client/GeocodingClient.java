@@ -23,9 +23,9 @@ import org.bremersee.tomtom.model.AbstractReverseGeocodeRequest;
  * General TomTom geocoding client interface.
  *
  * @param <S> the geocode response return type, e. g. {@literal GeocodeResponse} or {@literal
- * Mono<GeocodeResponse>}
+ *            Mono<GeocodeResponse>}
  * @param <R> the reverse search response type, e. g. {@literal ReverseGeocodeResponse} or {@literal
- * Mono<ReverseGeocodeResponse>}
+ *            Mono<ReverseGeocodeResponse>}
  * @author Christian Bremer
  */
 public interface GeocodingClient<S, R> {

@@ -36,9 +36,10 @@ public class DefaultGeocodingClient extends AbstractDefaultClient
   /**
    * Instantiates a new default geocoding client.
    *
-   * @param properties the properties
+   * @param properties   the properties
    * @param objectMapper the object mapper
    */
+  @SuppressWarnings("WeakerAccess")
   public DefaultGeocodingClient(
       TomTomProperties properties,
       ObjectMapper objectMapper) {

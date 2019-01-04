@@ -44,6 +44,7 @@ public class AddressWithPositionString extends UnknownAware {
    *
    * @return the latitude longitude (can be {@code null})
    */
+  @SuppressWarnings("unused")
   public LatitudeLongitude parsePosition() {
     if (StringUtils.hasText(position)) {
       final String[] posArray = StringUtils.commaDelimitedListToStringArray(position);

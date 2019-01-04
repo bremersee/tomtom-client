@@ -26,7 +26,7 @@ import org.bremersee.tomtom.model.RoutingRequest;
  * Routing API</a>
  *
  * @param <R> the routing response type, e. g. {@literal RoutingResponse} or {@literal
- * Mono<RoutingResponse>}
+ *            Mono<RoutingResponse>}
  * @author Christian Bremer
  */
 public interface RoutingClient<R> {

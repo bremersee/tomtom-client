@@ -39,10 +39,11 @@ public class ReverseGeocodeResponse extends UnknownAware {
   private List<AddressWithPositionString> addresses;
 
   /**
-   * Has addresses?
+   * Determines whether an address is present or not.
    *
-   * @return the boolean
+   * @return {@code true} if an address is present, otherwise {@code false}
    */
+  @SuppressWarnings("unused")
   public boolean hasAddresses() {
     return addresses != null && !addresses.isEmpty();
   }

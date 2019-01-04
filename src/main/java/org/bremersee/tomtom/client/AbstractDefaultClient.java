@@ -49,7 +49,7 @@ public abstract class AbstractDefaultClient extends AbstractClient {
   /**
    * Instantiates a new abstract default client.
    *
-   * @param properties the properties
+   * @param properties   the properties
    * @param objectMapper the object mapper
    */
   protected AbstractDefaultClient(
@@ -63,10 +63,10 @@ public abstract class AbstractDefaultClient extends AbstractClient {
   /**
    * Call the url.
    *
-   * @param <T> the type of the response
-   * @param url the url
-   * @param httpMethod the http method
-   * @param requestBody the request body
+   * @param <T>           the type of the response
+   * @param url           the url
+   * @param httpMethod    the http method
+   * @param requestBody   the request body
    * @param responseClass the response class
    * @return the response
    */

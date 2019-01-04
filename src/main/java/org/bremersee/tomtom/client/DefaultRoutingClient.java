@@ -35,7 +35,7 @@ public class DefaultRoutingClient extends AbstractDefaultClient
   /**
    * Instantiates a new default routing client.
    *
-   * @param properties the properties
+   * @param properties   the properties
    * @param objectMapper the object mapper (can be {@code null})
    */
   public DefaultRoutingClient(

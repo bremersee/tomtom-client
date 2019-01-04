@@ -20,8 +20,11 @@ import org.bremersee.tomtom.model.RoutingResponse;
 import reactor.core.publisher.Mono;
 
 /**
+ * The reactive routing client interface.
+ *
  * @author Christian Bremer
  */
+@SuppressWarnings("WeakerAccess")
 public interface ReactiveRoutingClient extends RoutingClient<Mono<RoutingResponse>> {
 
 }

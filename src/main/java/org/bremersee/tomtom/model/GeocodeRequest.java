@@ -69,13 +69,13 @@ public class GeocodeRequest extends AbstractGeocodeRequest {
   /**
    * Instantiates a new geocode request.
    *
-   * @param limit the limit
-   * @param ofs the ofs
-   * @param language the language
-   * @param query the query
-   * @param countrySet the country set
-   * @param latLon the lat lon
-   * @param radius the radius
+   * @param limit       the limit
+   * @param ofs         the ofs
+   * @param language    the language
+   * @param query       the query
+   * @param countrySet  the country set
+   * @param latLon      the lat lon
+   * @param radius      the radius
    * @param boundingBox the bounding box
    */
   @Builder

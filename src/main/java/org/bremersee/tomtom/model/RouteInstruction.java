@@ -37,7 +37,7 @@ import org.bremersee.plain.model.UnknownAware;
 public class RouteInstruction extends UnknownAware {
 
   /**
-   * Distance from the start of the route to the point of the instructi
+   * Distance from the start of the route to the point of the instruction.
    */
   private Integer routeOffsetInMeters;
 

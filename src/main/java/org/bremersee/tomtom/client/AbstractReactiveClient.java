@@ -40,8 +40,8 @@ public abstract class AbstractReactiveClient extends AbstractClient {
   /**
    * Instantiates a new abstract reactive client.
    *
-   * @param properties the properties
-   * @param webClientBuilder the web client builder
+   * @param properties            the properties
+   * @param webClientBuilder      the web client builder
    * @param webClientErrorDecoder the web client error decoder
    */
   protected AbstractReactiveClient(

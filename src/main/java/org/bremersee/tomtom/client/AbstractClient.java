@@ -77,7 +77,7 @@ public abstract class AbstractClient {
    * Build the request url.
    *
    * @param baseUri the base uri
-   * @param params the params
+   * @param params  the params
    * @return the url
    */
   protected URL buildUrl(final String baseUri, final MultiValueMap<String, String> params) {

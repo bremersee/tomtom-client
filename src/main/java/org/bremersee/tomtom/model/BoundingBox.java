@@ -43,9 +43,9 @@ public class BoundingBox extends UnknownAware {
   private LatLon btmRightPoint;
 
   /**
-   * Has values?
+   * Determines whether this bounding box has values.
    *
-   * @return the boolean
+   * @return {@code true} if values are present, otherwise {@code false}
    */
   public boolean hasValues() {
     return topLeftPoint != null && topLeftPoint.hasValues()

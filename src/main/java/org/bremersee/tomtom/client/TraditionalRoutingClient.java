@@ -19,8 +19,11 @@ package org.bremersee.tomtom.client;
 import org.bremersee.tomtom.model.RoutingResponse;
 
 /**
+ * The rraditional routing client interface.
+ *
  * @author Christian Bremer
  */
+@SuppressWarnings("WeakerAccess")
 public interface TraditionalRoutingClient extends RoutingClient<RoutingResponse> {
 
 }

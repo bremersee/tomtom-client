@@ -44,6 +44,7 @@ public class LatLon extends UnknownAware implements LatLonAware {
    *
    * @param latLonAware the lat lon aware
    */
+  @SuppressWarnings("unused")
   public LatLon(LatLonAware latLonAware) {
     if (latLonAware != null) {
       this.lat = latLonAware.getLatitude();

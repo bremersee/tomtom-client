@@ -46,7 +46,7 @@ public class ReactiveRoutingClientImpl extends AbstractReactiveClient
   /**
    * Instantiates a new reactive routing client.
    *
-   * @param properties the properties
+   * @param properties       the properties
    * @param webClientBuilder the web client builder
    */
   public ReactiveRoutingClientImpl(

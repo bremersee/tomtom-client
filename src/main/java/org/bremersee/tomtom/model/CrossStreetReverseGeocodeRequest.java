@@ -32,6 +32,7 @@ import org.springframework.util.MultiValueMap;
 @Getter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+@SuppressWarnings("unused")
 public class CrossStreetReverseGeocodeRequest extends AbstractReverseGeocodeRequest {
 
   /**
@@ -48,9 +49,9 @@ public class CrossStreetReverseGeocodeRequest extends AbstractReverseGeocodeRequ
    * Instantiates a new cross street reverse geocode request.
    *
    * @param position the position
-   * @param heading the heading
-   * @param radius the radius
-   * @param limit the limit
+   * @param heading  the heading
+   * @param radius   the radius
+   * @param limit    the limit
    * @param language the language
    */
   @Builder

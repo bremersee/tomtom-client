@@ -70,6 +70,7 @@ public class Address extends UnknownAware {
    *
    * @return the rectangle
    */
+  @SuppressWarnings("unused")
   public Rectangle findBoundingBox() {
     final Optional<String> northEast = findUnknown("$.boundingBox.northEast", String.class);
     final Optional<String> southWest = findUnknown("$.boundingBox.southWest", String.class);

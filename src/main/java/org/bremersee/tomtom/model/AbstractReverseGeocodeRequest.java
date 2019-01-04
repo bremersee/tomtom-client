@@ -59,10 +59,10 @@ public abstract class AbstractReverseGeocodeRequest extends AbstractRequest {
   /**
    * Instantiates a new abstract reverse geocode request.
    *
-   * @param path the path
+   * @param path     the path
    * @param position the position
-   * @param heading the heading
-   * @param radius the radius
+   * @param heading  the heading
+   * @param radius   the radius
    */
   protected AbstractReverseGeocodeRequest(
       @NotNull String path,

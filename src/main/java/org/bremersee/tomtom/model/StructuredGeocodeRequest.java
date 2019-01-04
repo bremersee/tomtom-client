@@ -32,6 +32,7 @@ import org.springframework.util.StringUtils;
 @Getter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+@SuppressWarnings("unused")
 public class StructuredGeocodeRequest extends AbstractGeocodeRequest {
 
   /**
@@ -87,19 +88,19 @@ public class StructuredGeocodeRequest extends AbstractGeocodeRequest {
   /**
    * Instantiates a new Structured geocode request.
    *
-   * @param limit the limit
-   * @param ofs the ofs
-   * @param language the language
-   * @param countryCode the country code
-   * @param streetNumber the street number
-   * @param streetName the street name
-   * @param crossStreet the cross street
-   * @param municipality the municipality
-   * @param municipalitySubdivision the municipality subdivision
-   * @param countryTertiarySubdivision the country tertiary subdivision
+   * @param limit                       the limit
+   * @param ofs                         the ofs
+   * @param language                    the language
+   * @param countryCode                 the country code
+   * @param streetNumber                the street number
+   * @param streetName                  the street name
+   * @param crossStreet                 the cross street
+   * @param municipality                the municipality
+   * @param municipalitySubdivision     the municipality subdivision
+   * @param countryTertiarySubdivision  the country tertiary subdivision
    * @param countrySecondarySubdivision the country secondary subdivision
-   * @param countrySubdivision the country subdivision
-   * @param postalCode the postal code
+   * @param countrySubdivision          the country subdivision
+   * @param postalCode                  the postal code
    */
   @Builder
   public StructuredGeocodeRequest(

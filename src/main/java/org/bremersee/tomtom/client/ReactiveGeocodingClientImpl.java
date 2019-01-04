@@ -31,7 +31,7 @@ import reactor.core.publisher.Mono;
  *
  * @author Christian Bremer
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class ReactiveGeocodingClientImpl extends AbstractReactiveClient
     implements ReactiveGeocodingClient {
 
@@ -48,7 +48,7 @@ public class ReactiveGeocodingClientImpl extends AbstractReactiveClient
   /**
    * Instantiates a new reactive geocoding client.
    *
-   * @param properties the properties
+   * @param properties       the properties
    * @param webClientBuilder the web client builder
    */
   public ReactiveGeocodingClientImpl(

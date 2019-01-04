@@ -32,7 +32,7 @@ public abstract class AbstractRequest {
   /**
    * Encode an url value.
    *
-   * @param value the value
+   * @param value  the value
    * @param encode if {@code true} the value will be url encoded, otherwise not
    * @return the (encoded) value
    */

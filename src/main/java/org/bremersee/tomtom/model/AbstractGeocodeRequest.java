@@ -28,10 +28,10 @@ import org.springframework.util.MultiValueMap;
  *
  * @author Christian Bremer
  */
-@SuppressWarnings("WeakerAccess")
 @Getter
 @ToString
 @EqualsAndHashCode(callSuper = false)
+@SuppressWarnings("WeakerAccess")
 public abstract class AbstractGeocodeRequest extends AbstractRequest {
 
   /**
@@ -52,8 +52,8 @@ public abstract class AbstractGeocodeRequest extends AbstractRequest {
   /**
    * Instantiates a new abstract geocode request.
    *
-   * @param limit the limit
-   * @param ofs the ofs
+   * @param limit    the limit
+   * @param ofs      the ofs
    * @param language the language
    */
   protected AbstractGeocodeRequest(

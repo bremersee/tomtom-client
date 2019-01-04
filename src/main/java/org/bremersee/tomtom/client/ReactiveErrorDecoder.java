@@ -30,15 +30,24 @@ import org.springframework.web.reactive.function.client.ClientResponse;
  *
  * @author Christian Bremer
  */
+@SuppressWarnings("WeakerAccess")
 public class ReactiveErrorDecoder extends AbstractWebClientErrorDecoder<WebClientException> {
 
   private final ExceptionMessageParser parser;
 
+  /**
+   * Instantiates a new reactive error decoder.
+   */
   public ReactiveErrorDecoder() {
     this(null);
   }
 
-  public ReactiveErrorDecoder(ExceptionMessageParser parser) {
+  /**
+   * Instantiates a new reactive error decoder.
+   *
+   * @param parser the parser
+   */
+  public ReactiveErrorDecoder(final ExceptionMessageParser parser) {
     this.parser = parser != null ? parser : ExceptionMessageParser.defaultParser();
   }
 
