@@ -19,12 +19,10 @@ package org.bremersee.tomtom.client;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.Option;
-import org.bremersee.tomtom.model.RoutingResponse;
 import org.springframework.util.StringUtils;
 
 /**
- * Error parser that reads the error description from the routing response (see {@link
- * RoutingResponse#getError()}).
+ * Error parser that reads the error description from the routing response.
  *
  * @author Christian Bremer
  */
