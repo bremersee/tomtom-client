@@ -50,7 +50,7 @@ public class GeocodeRequest extends AbstractGeocodeRequest {
   private List<Locale> countrySet;
 
   /**
-   * Latitude and longitude where results should be biased NOTE: supplying a lat/lon without a
+   * Latitude and longitude where results should be biased. NOTE: supplying a lat/lon without a
    * radius will return search results biased to that point.
    */
   private LatLonAware latLon;
